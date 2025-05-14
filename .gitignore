@@ -1,10 +1,15 @@
 *.rock
-test.lua
-teste.lua
 
 #IntelliJ IDEA Files
 .idea
 *.iml
 
+#VS Code files
+launch.json
+
 #macOS
 .DS_Store
+
+#Debugging files 
+debugger.lua
+test.lua
