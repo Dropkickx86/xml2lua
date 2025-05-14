@@ -237,7 +237,7 @@ end
 
 function xml2lua.parseTableToXml(obj, tagName, level)
   if (tagName ~= '_attr') then
-    if (type(obj) == 'table') then
+    if (type(obj) == 'table' and (#obj ~= 1 or type(obj[1]) == 'table')) then
       if (xml2lua.isChildArray(obj)) then
         for _, value in pairs(obj) do
           xml2lua.parseTableToXml(value, tagName, level)
@@ -252,10 +252,14 @@ function xml2lua.parseTableToXml(obj, tagName, level)
         xml2lua.endTag(tagName, level)
       end
     else
-      xml2lua.addTagValueAttr(tagName, obj, nil, level)
+      if type(obj) == 'table' then
+        xml2lua.addTagValueAttr(tagName, obj[1], obj._attr, level)
+      else
+        xml2lua.addTagValueAttr(tagName, obj, nil, level)
+      end
     end
   end
-    end
+end
 
 ---Converts a Lua table to a XML String representation.
 --@param tb Table to be converted to XML
